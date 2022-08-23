@@ -7,7 +7,57 @@
 
 import Foundation
 
-var pointMenu: String?
+var mathString: String?
+var a: Int?
+var b: Int?
+
+let letters = CharacterSet.letters
+let number = CharacterSet.decimalDigits
+
+var numbers: [String.SubSequence]?
+
+repeat {
+    print("Введите математический пример (ex. -12 + 5): ")
+    mathString = readLine()
+    if let mathString = mathString {
+        numbers = mathString.split(separator: " ")
+    }
+    
+} while mathString == nil || mathString == "" || mathString!.rangeOfCharacter(from: letters) != nil || mathString!.rangeOfCharacter(from: number) == nil || !mathString!.contains(" ") || numbers!.count > 4 || Int(numbers!.first!) == nil || Int(numbers!.last!) == nil
+    
+if let numbers = numbers {
+    
+    let a1 = numbers.firstIndex(where: { (Double($0) != nil) == true})
+    let b1 = numbers.lastIndex(where: { (Double($0) != nil) == true})
+    
+    for index in numbers.indices {
+        for item in numbers {
+            
+            if index == a1 {
+                a = Int(numbers[index])!
+            } else if index == b1 {
+                b = Int(numbers[index])!
+            }
+            
+            guard let a = a, let b =  b  else { break }
+            
+            switch String(item) {
+            case "+":
+                    print("Результат операции \(a) + \(b) = " + String(a + b))
+            case "-":
+                    print("Результат операции \(a) + \(b) = " + String(a - b))
+            case "*":
+                    print("Результат операции \(a) + \(b) = " + String(a * b))
+            case "/":
+                    print("Результат операции \(a) + \(b) = " + String(a / b))
+            default:
+                break
+            }
+        }
+    }
+}
+
+/*var pointMenu: String?
 var a: String?
 var b: String?
 
@@ -54,4 +104,4 @@ repeat {
             print("Неверный пункт меню!")
         }
     }
-} while Int(pointMenu!) != 6
+} while Int(pointMenu!) != 6*/
